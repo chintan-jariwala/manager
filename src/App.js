@@ -5,6 +5,7 @@ import {Container, Content, Header, Root, Title} from 'native-base';
 import reducers from './reducer';
 import * as config from './config/firebase-config'
 import firebase from 'firebase';
+import LoginForm from "./components/LoginForm";
 
 class App extends Component {
 
@@ -21,6 +22,7 @@ class App extends Component {
                             <Title>Welcome</Title>
                         </Header>
                         <Content>
+                            <LoginForm/>
                         </Content>
                     </Container>
                 </Provider>
