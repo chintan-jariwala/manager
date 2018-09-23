@@ -1,30 +1,26 @@
 import React, {Component} from 'react';
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {Container, Content, Header, Root, Title} from 'native-base';
+import {Root} from 'native-base';
+import ReduxThunk from 'redux-thunk';
+import firebase from 'firebase';
 import reducers from './reducer';
 import * as config from './config/firebase-config'
-import firebase from 'firebase';
-import LoginForm from "./components/LoginForm";
+import Navigation from "./navigation";
 
 class App extends Component {
 
     componentWillMount() {
-        firebase.initializeApp(config);
+        console.log(config);
+        firebase.initializeApp(config.config);
     }
 
     render() {
+        const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
             <Root>
-                <Provider store={createStore(reducers)}>
-                    <Container>
-                        <Header>
-                            <Title>Welcome</Title>
-                        </Header>
-                        <Content>
-                            <LoginForm/>
-                        </Content>
-                    </Container>
+                <Provider store={store}>
+                    <Navigation/>
                 </Provider>
             </Root>
         );
